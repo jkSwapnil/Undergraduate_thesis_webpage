@@ -34,9 +34,7 @@
 
     <div class="intro_left">
       <p align="center"><name>Swapnil Kumar</name></p>
-      <p>I am a senior undergraduate student at <a href="http://www.iitb.ac.in/" target="_blank">IIT Bombay</a> pursuing a major in Mechanical Engineering and a minor in Computer Science and Engineering.      
-      My interest lies in areas of Artificial Intelligence with a focus on Computer Vision, Numerical, and Robotic Simulations. I have undertaken various projects, courses, and other experiences in these fields. I am also fascinated by other fields, including distributed computing, robotics, and optimization.
-      I'm a member <a href ="https://iitbmartian.github.io/" target="_blank">IITB Mars Rover Team</a> and I'm also working on developing an efficient, accurate and versatile Human Activity Recognition system in the Machine Intelligence Program under the supervision of <a href="https://www.me.iitb.ac.in/?q=faculty/Prof.%20Asim%20Tewari" target="_blank">Prof. Asim Tewari</a>.
+      <p>I am a senior undergraduate at <a href="http://www.iitb.ac.in/" target="_blank">IIT Bombay</a> pursuing a major in Mechanical Engineering and a minor in Computer Science and Engineering. My interest lies in areas of Artificial Intelligence with a focus on Computer Vision.  I'm also interested in distributed computing, numerical simulations, and robotics. I'm an emeritus member of the <a href ="https://iitbmartian.github.io/" target="_blank">IITB Mars Rover Team</a>. Currently, I'm working on developing an efficient, modular, and versatile system for the Human Activity Recognition in the Machine Intelligence Program under the supervision of <a href="https://www.me.iitb.ac.in/?q=faculty/Prof.%20Asim%20Tewari" target="_blank">Prof. Asim Tewari</a>. Please visit my webpage to know further about my project works and interests.
       </p>
     </div>
 
@@ -46,44 +44,150 @@
     <p> 
     <sr>1.</sr><subheading> Objective and Motivation</subheading>
     <br>
-    Modeling and Recognition of Human Activities have been a hot research topic in recent times. It finds many practical applications like interactive healthcare, autonomous surveillance systems, entertainment, autonomous driving, computer graphics, etc. Classical approaches used handcrafted features (holistic and local) to model and classify the action. These required expertise and did not generalize well. Only in recent times, the problem has been addressed by deep learning-based methods such as 3D-CNN, Multi-stream networks, Hybrid-networks, etc. Instead of relying on the pre-determined set of features, these models hierarchically learn rich and domain-specific features. Due to the success of these deep-networks, there have been great improvements in the state-of-the-art accuracy of the recognition systems.<!-- </p> -->
 
-   <!--  <p style="text-indent: 25px;"> -->
-    Despite these huge leaps, most of the Human Activity Recognition systems are computationally intensive and require huge resources. Also, the models are domain-specific thus, changing the working domain of the model requires re-training (except for bottom layers if transfer-learning is used) on the new dataset. In this project, the objective is to develop a computationally efficient, modular, and versatile model for activity recognition. We have developed a 2-Stage skeleton-based approach for modeling action, using single vision-based input (monocular RGB videos). Our model is more efficient, can easily be extended to different domains, and gives competitive performance to the state-of-the-art.</p>
+    Human activity recognition is concerned with developing intelligent agents that can perform the recognition tasks on par with the human brain. It finds applications in interactive healthcare, autonomous surveillance systems, entertainment, autonomous driving, computer graphics, and many more. The classical approaches used handcrafted features (holistic and local) to represent and classify the action. This required domain expertise and also did not generalize well. Only recently, the problem has been addressed by deep learning-based methods such as 3D-CNN, multi-stream networks, hybrid-networks, etc. Instead of relying on the pre-determined set of features, these models hierarchically learn them to represent the action. Due to this, there have been great improvements in the state-of-the-art accuracy of the recognition systems. But, many previous works developed deep-networks that were end-to-end trainable. Very deep networks are hard to train and are computationally intensive. Also, complete retraining of the model is required for moving to a different dataset. If transfer learning is used, it will lead to even deeper networks. Hence, the objective of this project is to develop a versatile, efficient, and modular method for activity recognition. A new 2-Stage approach is proposed with separate pre-processing and classification modules. It can be easily modified, trained, and gives a competitive performance to the state-of-the-art.</p>
 
     <p>
     <sr>2.</sr><subheading> Approach and Results</subheading>
     <br>
-    We proposed a unique 2-Stage skeleton-based approach to achieve the above goals. For now, we focused only on vision-based input in form of monocular RGB videos. The figure below shows the complete pipeline of our model.</p>
+    </p>
 
     <img class="figure" src="./img/2-stage_model.png" alt="Image to show complete pipeline of our model">
 
-    <p>The first stage of the model uses a Human Pose Estimation algorithm to localize the crucial Human joints responsible for the Pose. This step is done for each frame of the input video and localized joint coordinates are to be used to evaluate joint angles. This is shown in the figure below. The action is classified by studying temporal variations on these poses (joint angles). The video clip below shows action recognition on the KTH dataset.</p>
+    <p>The figure above gives the complete pipeline of our model. In this project, we have limited ourselves to the 2D domain. The model takes input in the form of monocular RGB videos. The first stage uses a pose estimation algorithm to localize the crucial human joints responsible for the pose. This step is performed on every frame of the input video and localized joint coordinates are used to evaluate joint angles and displacements. These values are then further concatenated to create an input vector, which encodes the spatial information of the action at every timestamp (frame). In the second stage, a shallow recurrent network classifies the action by studying input vectors of a fixed number of consecutive frames. For training and testing the model, we have used the <a href="https://www.csc.kth.se/cvap/actions/" target="_blank">KTH</a> dataset, which is a standard and extensively used datasets in the field of activity recognition.</p>
 
-    <video class="figure" controls>
-      <source src="./vid/1_subject.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+    <div style="overflow-x:scroll;">
+    <table>
+	  <tr>
+    	<th>Method</th>
+    	<th>Boxing</th>
+    	<th>Handclapping</th>
+    	<th>Handwaving</th>
+    	<th>Jogging</th>
+    	<th>Running</th>
+    	<th>Walking</th>
+    	<th>Overall</th>
+      </tr>
+      <tr>
+    	<th>2-Stage</th>
+    	<td>99.99</td>
+    	<td>99.96</td>
+    	<td>99.85</td>
+    	<td>94.97</td>
+    	<td>92.71</td>
+    	<td>91.79</td>
+    	<td>99.51</td>
+      </tr>
+      <tr>
+    	<th><a href="https://ieeexplore.ieee.org/document/6165309" target="_blank">3D-CNN</a></th>
+    	<td>90</td>
+    	<td>94</td>
+    	<td>97</td>
+    	<td>84</td>
+    	<td>79</td>
+    	<td>97</td>
+    	<td>90.2</td>
+      </tr>
+      <tr>
+    	<th>
+    		<a href="https://www.researchgate.net/publication/4090526_Recognizing_human_actions_A_local_SVM_approach" target="_blank">Schuldt</a>
+    	</th>
+    	<td>97.9</td>
+    	<td>59.7</td>
+    	<td>73.6</td>
+    	<td>60.4</td>
+    	<td>54.9</td>
+    	<td>83.8</td>
+    	<td>71.7</td>
+      </tr>
+      <tr>
+    	<th>
+    		<a href="https://www.researchgate.net/publication/4210181_Behavior_recognition_via_sparse_spatio-temporal_features" target="_blank">Dollar</a>
+    	</th>
+    	<td>93</td>
+    	<td>77</td>
+    	<td>85</td>
+    	<td>57</td>
+    	<td>85</td>
+    	<td>90</td>
+    	<td>81.2</td>
+      </tr>
+      <tr>
+    	<th><a href="https://link.springer.com/article/10.1007/s11263-007-0122-4" target="_blank">Niebles</a></th>
+    	<td>98</td>
+    	<td>86</td>
+    	<td>93</td>
+    	<td>53</td>
+    	<td>88</td>
+    	<td>82</td>
+    	<td>83.3</td>
+      </tr>
+      <tr>
+    	<th><a href="https://ieeexplore.ieee.org/document/4408988" target="_blank">Jhuang</a></th>
+    	<td>92</td>
+    	<td>98</td>
+    	<td>92</td>
+    	<td>85</td>
+    	<td>87</td>
+    	<td>96</td>
+    	<td>91.7</td>
+      </tr>
+	</table>
+	</div>
 
-    <p>Splitting the job into two stages introduces modularity in the model. Because the joint localization stage is independent of the domain and application, the model can quickly be modified and trained on a different dataset by just working on the classifier stage. Similarly, the joint localization stage can be modified independently of the classifier. For example, the pre-processing stage of classifier (trained on single-person action recognition dataset) can be tweaked to enable multiple-person action recognition, without retraining, as shown in the video below. This depicts the versatile nature of the model due to its modularity.</p>
+	<p>The table gives a quantitative comparison of the performance of our model to the other state-of-the-art. The 2-Stage method gives far better performance. Apart from this, we also performed a qualitative analysis of the model by print out the labels. This helps us to better visualize the misclassification. The video clips shown below are of the the <a href="https://www.csc.kth.se/cvap/actions/" target="_blank">KTH</a> dataset.</p>
+
+    <div class="row">
+    	<div class="column">
+    		<video class="figure" controls>
+      			<source src="./vid/boxing_output.mp4" type="video/mp4">
+      			Your browser does not support the video tag.
+    		</video>
+    		<video class="figure" controls>
+      			<source src="./vid/handclapping_output.mp4" type="video/mp4">
+      			Your browser does not support the video tag.
+    		</video>
+		</div>
+		<div class="column">
+    		<video class="figure" controls>
+      			<source src="./vid/handwaving_output.mp4" type="video/mp4">
+      			Your browser does not support the video tag.
+    		</video>
+    		<video class="figure" controls>
+      			<source src="./vid/running_output.mp4" type="video/mp4">
+      			Your browser does not support the video tag.
+    		</video>
+		</div>
+		<div class="column">
+    		<video class="figure" controls>
+      			<source src="./vid/walking_output.mp4" type="video/mp4">
+      			Your browser does not support the video tag.
+    		</video>
+    		<video class="figure" controls>
+      			<source src="./vid/jogging_output.mp4" type="video/mp4">
+      			Your browser does not support the video tag.
+    		</video>
+		</div>
+	</div>
+
+    <p>Splitting the job into two stages introduces modularity in the model. Because stage one (joint localization) is independent of stage two (classification), we can switch between datasets by simply retraining the shallow classifier. Similarly, stage one can be modified independently of the classifier. For example, the pre-processing step in stage one can be tweaked to enable multiple-subject action recognition on the model trained on a single-subject action recognition dataset, as shown in the video clip below (concatenatedating two <a href="https://www.csc.kth.se/cvap/actions/" target="_blank">KTH</a> dataset videos). This depicts the versatile nature of the model due to its modularity.</p>
 
     <video class="figure" controls>
       <source src="./vid/2_subjects.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
 
-    <p> Our model is computationally efficient as compared to the state-of-the-art due to the shallow architecture of its' recurrent classifier. The following table shows a comparison of our model's accuracy on the KTH dataset with other state-of-the-art models. Our model gives better or comparable accuracies in addition to being efficient and versatile thus, fulfilling our original objective. We are also currently working on an implementation of the project in form of a payment system. If you wish to know further about the project please, feel free to contact me.</p>
+    <p> Due to its shallow architecture, the classifier is much easier to train as compared to other deep-networks. Thus, fulfilling our original objectives. We are also working on an implementation of the project in the form of a payment system for assembly lines and shop floors. If you wish to know further about the project please, feel free to contact me.</p>
 
-    <img class="figure" src="./img/model_comparison.png" alt="Comparison of results on KTH datasets" style="width: 100%">
 
     <p>
     <sr>3.</sr><subheading> Limitations and Future work</subheading>
     <br>
     Following are the issues being faced by the current model and the possible directions in which work can be done to solve them -
       <ul>
-        <li>The current model localizes and evaluates the angles in 2D-space. We can get a much better idea of pose variations if we know the localized joint positions and angles in a 3D-space. We are exploring using RGBD videos instead of the plain RGB or other sensor-based modes of input alongside to get the depth information.</li>
+        <li>The model suffers from viewpoint changes as it operates in the 2D domain. We can get a much better representation of the action if we have the joint positions and angles in 3D. We are exploring the use of RGBD videos instead of the plain RGB or other sensor-based modes of input alongside to get the depth information.</li>
         <br>
-        <li>As we focus only on a specific person's pose variation for activity recognition. The current iteration of the model cannot recognize group activities such as playing, discussions, fights, etc. We are actively working on the inclusion of a person's interactions with neighboring subjects and objects along with join angles. This will enable the model to recognize activities involving interaction between multiple subjects or a subject with an object.</li>
+        <li>Till now, we focus only on a specific person's pose variation for activity recognition. The current model cannot recognize group activities such as playing, discussions, fights, etc. We are actively working on including data of interactions with neighboring subjects and objects, to enhance the model's capability to recognize complex actions.</li>
       </ul>
     </p>
 	<br>

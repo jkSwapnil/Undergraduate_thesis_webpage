@@ -43,6 +43,16 @@ a:focus, a:hover {
   text-decoration:none;
 }/*..Anchor style ends..*/
 
+table {
+  border: 1px solid black;
+  width: 100%
+}
+
+th, td {
+  border: 1px solid black;
+  text-align: center;
+}
+
 
 /*--------------------------DEFINED TAG STYLING-----------------------------------*/
 
@@ -109,15 +119,40 @@ name {
 @media (min-width: 1000px){
   .intro_left{
     float: left;
-    width: 60%;
+    width: 65%;
     height: 310px;
   }
   .intro_right{
     float: right;
-    width: 40%;
+    width: 35%;
     height: 310px;
   }
   .profile_img{
     width:80%;
   }
 }/*..Intro style ends..*/
+
+
+/*..Video style begins..*/
+@media (max-width: 700px){
+  .column video {
+  margin: 25px 10px 25px 10px;
+  vertical-align: middle;
+  width: 100%;
+  }
+}
+@media (min-width: 700px){
+  .row {
+  display: flex;
+  flex-wrap: wrap;
+  }
+  .column {
+  flex: 31%;
+  margin: 8px;
+  }
+  .column video {
+  margin-top: 15px; 
+  vertical-align: middle;
+  width: 100%;
+  }
+}/*..Video style ends..*/
